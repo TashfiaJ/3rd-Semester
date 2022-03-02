@@ -20,7 +20,11 @@ int main ()
 
     cin >> state;
 
-    ll start, final_no;
+    ll start, final_no, symbol;
+
+    cout << "Enter total no of input symbol: ";
+
+    cin >> symbol;
 
     cout << "Enter the start state: ";
 
@@ -49,23 +53,21 @@ int main ()
     //Transition Table
     cout << "\nInput TRANSITION TABLE:\n";
 
-    ll table[state][2];
+    ll table[state][symbol];
 
     for(ll i=0; i<state; i++)
     {
+        for(ll j=0; j<symbol; j++){
+
         ll x;
 
-        cout << "From state " << i+1 << " with input '0' " << "goes to state -> ";
+        cout << "From state " << i+1 << " with input '" << j <<"' goes to state -> ";
 
         cin >> x;
 
-        table[i][0] = x-1;
+        table[i][j] = x-1;
 
-        cout<< "From state " << i+1 << " with input '1' " << "goes to state -> ";
-
-        cin >> x;
-
-        table[i][1] = x-1;
+        }
     }
 
     cout << "\n\t------------------------------------------------------------------------------\n\n";
@@ -84,7 +86,7 @@ int main ()
 
     for(ll i=0; i<length; i++)
     {
-        cout << "state "<< current_state+1 << " with input " << input[i]-48 << " to -> " << table[current_state][input[i]-48]+1 << '\n';
+        cout << "From state "<< current_state+1 << " with input " << input[i]-48 << " goes to -> " << table[current_state][input[i]-48]+1 << '\n';
 
         current_state = table[current_state][input[i]-48];
     }
