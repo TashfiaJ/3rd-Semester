@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 #define n 300
-double x[n+1], f[n+1], dc[n+1], dm[n+1];
+double x[n+1], f[n+1], dc[n+1], dm[n+1],h;
 
 double F(double x)
 {
@@ -35,12 +35,9 @@ int main()
 
 	x[0]=0;
 	double l=0, r=10;
-	x[n]=10;
 	double h=(r-l)/(double)n;
 	f[0]=F(x[0]);
 	dc[0]=diff(x[0]);
-	f[n]=F(x[n]);
-	dc[n]=diff(x[n]);
 	int i;
 	for(i=1; i<n; i++)
 	{
@@ -48,6 +45,9 @@ int main()
 		f[i]=F(x[i]);
 		dc[i]=diff(x[i]);
 	}
+	x[n]=10;
+    f[n]=F(x[n]);
+	dc[n]=diff(x[n]);
 	dm[0]=forward(x[0], x[1]);
 	dm[n]=backward(x[n], x[n-1]);
 	for( i=1; i<n; i++)
