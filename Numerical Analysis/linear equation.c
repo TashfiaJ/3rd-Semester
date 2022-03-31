@@ -1,38 +1,44 @@
-#include <stdio.h>
-#include <math.h>
+#include<stdio.h>
+#include<math.h>
 
-#define f1(x, y, z) (85 - 3*y + 2 * z) / 15
-#define f2(x, y, z) (51 - 2 * x - z) / 10
-#define f3(x, y, z) (5 - x + 2 * y) / 8
-#define e 1.0e-9
+#define f1(x,y,z) ((85-3*(y)+2*(z))/15)
+#define f2(x,y,z) ((51-2*(x)-z)/10)
+#define f3(x,y,z) ((5-(x)+2*(y))/8)
 
-/* Main function */
-int main()
-{
-    double x0 = 0, y0 = 0, z0 = 0, x1, y1, z1, e1, e2, e3;
-    int count = 1;
+#define EPSILON 1e-6
 
+void iterative_solution();
 
-    do
-    {
-        x1 = f1(x0, y0, z0);
-        y1 = f2(x0, y0, z0);
-        z1 = f3(x0, y0, z0);
+int main(){
 
+    iterative_solution();
+return 0;
+}
 
-        e1 = fabs(x0 - x1);
-        e2 = fabs(y0 - y1);
-        e3 = fabs(z0 - z1);
+void iterative_solution(){
+    double x_old=0, y_old=0, z_old=0;
+    double x_new, y_new, z_new;
+    double x_error, y_error, z_error;
 
-        count++;
+    int iteration_count=0;
+    while(1){
+        x_new = f1(x_old, y_old, z_old);
+        y_new = f2(x_old, y_old, z_old);
+        z_new = f3(x_old, y_old, z_old);
 
-        x0 = x1;
-        y0 = y1;
-        z0 = z1;
-    }while (e1 > e && e2 > e && e3 > e);
+        x_error = fabs(x_old-x_new);
+        y_error = fabs(y_old-y_new);
+        z_error = fabs(z_old-z_new);
 
-    printf("\nRoot(J): x=%16.9lf, y=%16.9lf and z = %16.9lf\n", x1, y1, z1);
-    printf("%d", count);
-
-    return 0;
+        if(x_error<EPSILON && y_error<EPSILON && z_error<EPSILON){
+            printf("x=%lf, y=%lf, z=%lf\n",x_new, y_new, z_new);
+            printf("Iteration required=%d\n",iteration_count);
+            break;
+        }else{
+            x_old = x_new;
+            y_old = y_new;
+            z_old = z_new;
+        }
+        iteration_count++;
+    }
 }
