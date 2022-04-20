@@ -1,86 +1,69 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-int main()
-{
+int main(){
+    
     string s;
-    cin >> s;
-    ll n = s.size();
-    for(ll i=0;i<n;i++)
-    {
-        if(s[i]=='0'|| s[i]=='1')s[i]='E';
-    }
-    ll brk=0,flag=1;
-    for(ll i=0;i<n;)
-    {
-        cout << i << " ";
-        if(s[i]=='E')
-        {
-            if(s[i+1]=='*'||s[i+1]=='+'){
-                if(s[i+2]=='E'){
-                    if(i+2>=n){
-                        flag=0;
-                        break;
-                    }
-                    i+=3;
-                    continue;
-                }
-                else{
-                    flag=0;
-                    break;
-                }
-            }
-             else if(s[i+1]==')')
-            {
-                if(brk>0){brk--;i+=2;s[i+1]='E';continue;}
-                else
-                {
-                    flag=0;
-                    break;
-                }
-            }
-
-            else if(s[i+1]=='(')
-            {
-                brk++;
-                i+=2;
-            }
+    cin>>s;
+    //s1 = cfg(s);
+    
+    string s1 = "E";
+    for(int i=0;i<s.length();i++){
+        if(s[i] == '0'){
+            s.replace(i,1,s1); 
         }
-        else if(s[i]=='('){
-            brk++;
-            i++;
-            if(i==n){
-                flag=0;
-                break;
-            }
-           }
-            else if(s[i]==')'){
-                if(brk>0){
-                    brk--;
-                    s[i]='E';
-                    if(i==n-1){
-                    i++;}
-                    continue;
-                }
-                else
-                {
-                    flag=0;
-                    break;
-                }
-            }
-            else {
-                flag=0;
-                break;
-            }
-
+        
+         if(s[i] == '1'){
+             s.replace(i,1,s1); 
+        }
+        cout << s << endl;
+        
     }
-    if(brk>0)flag=0;
-    if(flag){
-        cout<<"Accepted";
+    
+    
+    for(int i=0;i<s.length();i++){
+        
+         if(s[i] == 'E' && s[i+1] == '+' && s[i+2] == 'E'){
+             s.replace(i,3,s1); 
+        }
     }
-    else
-    {
-        cout<<"Not Accepted";
+    for(int i=0;i<s.length();i++){
+        if(s[i] == 'E' && s[i+1] == '*' && s[i+2] == 'E'){
+           s.replace(i,3,s1); 
+        }
+        
+        if(s[i] == '(' && s[i+1] == 'E' && s[i+2] == ')'){
+            s.replace(i,3,s1); 
+        }
+        cout<< s << endl;
     }
+    
+    if(s == "E"){
+        cout << "accepted" << endl;
+    }
+    
+    else{
+        for(int i=0;i<s.length();i++){
+        if(s[i] == 'E' && s[i+1] == '+' && s[i+2] == 'E'){
+           cout << "accepted" << endl;
+           break;
+        }
+        
+        else if(s[i] == 'E' && s[i+1] == '*' && s[i+2] == 'E'){
+           cout << "accepted" << endl;
+           break;
+        }
+        
+        else if(s[i] == '(' && s[i+1] == 'E' && s[i+2] == ')'){
+            cout << "accepted" << endl;
+            break;
+        }
+        
+        else{
+        cout << "Rejected\n";
+        break;
+        }
+    }
+    }
+    
 }
