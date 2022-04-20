@@ -1,0 +1,13 @@
+11
+S ab
+S bb
+a cc 
+a ab
+a a
+b bb
+b ca 
+b b
+c ba 
+c aa 
+c b
+aabb
